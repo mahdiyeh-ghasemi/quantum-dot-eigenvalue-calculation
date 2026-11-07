@@ -25,30 +25,41 @@ Throughout, we distinguish between (i) results that follow directly from the pub
 
 ## 1. Conventions and assumptions
 
-- **Units:** Gaussian units are used in the derivation of Eq. (12).
-- **Particles:** two identical electrons, $`m_1=m_2=m`$.
-- **Spin basis:** the spinors $`\chi_s`$ are eigenstates of $`S_z`$:
+We use the following conventions throughout.
+
+**Units.** Gaussian units are used in the derivation of Eq. (12).
+
+**Particles.** Two identical electrons, $`m_1=m_2=m`$.
+
+**Spin basis.** The spinors $`\chi_s`$ are eigenstates of $`S_z`$, with $`s=\pm1`$:
 
 ```math
-S_z\chi_s=\frac{s\hbar}{2}\chi_s,\qquad s=\pm1
+S_z\chi_s=\frac{s\hbar}{2}\chi_s
 ```
 
-- **Bohr radius:** in Gaussian units, without dielectric screening or effective-mass corrections,
+**Bohr radius.** In Gaussian units, without dielectric screening or effective-mass corrections,
 
 ```math
 a_B=\frac{\hbar^2}{me^2}
 ```
 
-  For a material-specific value, $`a_B^*=\varepsilon_r\hbar^2/(m^*e^2)`$ with the effective mass $`m^*`$ and the relative dielectric constant $`\varepsilon_r`$.
-- **Confinement:** an infinite square well of width $`L`$,
+For a material-specific value, the effective Bohr radius is
 
 ```math
-u(x)=\begin{cases}0,&0<x<L,\\ \infty,&\text{otherwise.}\end{cases}
+a_B^{\ast}=\frac{\varepsilon_r\hbar^2}{m^{\ast}e^2}
 ```
 
-- **Indices:** $`n,m,k,\ell=1,2,3,\dots`$. The symbol $`L`$ is reserved for the well width.
+where $`m^{\ast}`$ is the effective mass and $`\varepsilon_r`$ is the relative dielectric constant.
 
-These choices give a consistent mathematical starting point. They are conventions, and they are stated here because the published text does not state them.
+**Confinement.** An infinite square well of width $`L`$:
+
+```math
+u(x)=0\ \text{ for } 0<x<L,\qquad u(x)=\infty\ \text{ otherwise}
+```
+
+**Indices.** $`n,m,k,\ell=1,2,3,\dots`$. The symbol $`L`$ is reserved for the well width.
+
+These choices give a consistent mathematical starting point. They are conventions, and we state them here because the published text does not.
 
 ## 2. Equations (5)–(10)
 
