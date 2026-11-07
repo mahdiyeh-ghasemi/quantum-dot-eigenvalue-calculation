@@ -162,3 +162,80 @@ Equations (11)–(13) have been recorded as published relations, but their energ
 
 No numerical results based on these expressions should be presented as verified reproductions of the article.
 
+## 7. Equation (14): Exact Diagonalization Formulation
+
+The article introduces two \(3\times3\) matrices:
+
+\[
+H_{\alpha\beta}=
+\begin{pmatrix}
+1&2&0\\
+2&1&3\\
+-1&0&1
+\end{pmatrix}
+\]
+
+and
+
+\[
+u_{\alpha\beta}=
+\begin{pmatrix}
+2&3&1\\
+3&1&0\\
+2&0&1
+\end{pmatrix}.
+\]
+
+The corresponding system of equations is expressed as:
+
+\[
+\sum_j(H_{ij}-Eu_{ij})\Psi_j=0.
+\]
+
+In matrix form, this can be written as:
+
+\[
+(H-Eu)\boldsymbol{\Psi}=0.
+\]
+
+For a non-trivial solution, the generalized eigenvalue condition is:
+
+\[
+\det(H-Eu)=0.
+\]
+
+### 7.1 Interpretation
+
+This formulation resembles a generalized eigenvalue problem, commonly encountered when a Hamiltonian is represented in a non-orthogonal basis.
+
+In the conventional formulation:
+
+- \(H\) represents the Hamiltonian matrix.
+- \(S\) represents the basis overlap matrix.
+- \(E\) represents an energy eigenvalue.
+- \(\boldsymbol{\Psi}\) contains the expansion coefficients of the eigenstate.
+
+The conventional equation is:
+
+\[
+H\mathbf{c}=ES\mathbf{c}.
+\]
+
+However, the article denotes the second matrix by \(u_{\alpha\beta}\), without explicitly defining whether it is an overlap matrix.
+
+### 7.2 Scientific Issues Requiring Verification
+
+1. The physical meaning of the matrix \(u_{\alpha\beta}\) is not explicitly defined.
+2. If \(u_{\alpha\beta}\) is intended to be an overlap matrix, its lack of symmetry is inconsistent with the usual requirements for an overlap matrix of real basis functions.
+3. The printed Hamiltonian matrix is also non-symmetric.
+4. The article does not explain how the numerical matrix elements were calculated from the physical Hamiltonian.
+5. The units and physical scaling of the matrix elements are not specified.
+6. The relationship between these illustrative matrices and the two-electron quantum-dot Hamiltonian introduced earlier is unclear.
+
+### 7.3 Implementation Status
+
+Equation (14) has been identified as a generalized eigenvalue formulation.
+
+The printed matrices are documented as published, but their physical interpretation and consistency have not been established.
+
+They must not be treated as validated numerical results for the quantum-dot system without further justification.
