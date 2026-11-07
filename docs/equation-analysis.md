@@ -292,3 +292,56 @@ The full expression should be transcribed and independently derived before numer
 Equations (15) and (16) have been recorded as part of the published operator-method formulation.
 
 Their matrix elements have not yet been independently derived or numerically validated. No numerical implementation should be based on an assumed interpretation of the incomplete basis definitions.
+
+## 9. Equation (17): Electron–Electron Interaction Potential
+
+### 9.1 Published Interaction Potential
+
+The article introduces the following interaction potential:
+
+\[
+\vartheta(x_1,x_2)=
+-\frac{Ve^2}{2a}
+\exp\left(-\frac{|x_1-x_2|}{a}\right).
+\]
+
+The corresponding matrix element is expressed as:
+
+\[
+\langle m,s_m;k,s_k|
+\vartheta(x_1,x_2)
+|n,s_n;\ell,s_\ell\rangle.
+\]
+
+The matrix element is intended to describe the interaction contribution between two-particle basis states.
+
+### 9.2 Interpretation
+
+The interaction potential in Equation (17) has an exponential dependence on the inter-particle separation.
+
+It should not be identified directly with the conventional Coulomb potential:
+
+\[
+V_C(r)=\frac{e^2}{4\pi\varepsilon r}.
+\]
+
+Instead, it represents an effective exponential interaction model.
+
+The parameter \(a\) controls the characteristic length scale of the exponential decay, while the physical meaning and units of \(V\) require clarification.
+
+### 9.3 Scientific Issues Requiring Verification
+
+1. Equation (17) contains an absolute value in the exponential, whereas the earlier interaction expression in Equation (5) appears to use a different form.
+2. The negative sign in Equation (17) requires physical justification. For two electrons, the electrostatic Coulomb interaction is repulsive.
+3. The physical definitions and units of \(V\) and \(a\) are not sufficiently specified.
+4. The relationship between the exponential interaction and the Coulomb expression introduced in Equation (6) is not established.
+5. The two-particle matrix element must be evaluated using explicitly defined and properly normalized basis states.
+6. The treatment of particle exchange and spin symmetry must be consistent with fermionic antisymmetry.
+
+### 9.4 Implementation Status
+
+Equation (17) has been recorded as the published effective interaction potential.
+
+Its physical interpretation, sign convention, parameter definitions, and matrix elements have not yet been independently validated.
+
+No numerical implementation should assume that this exponential expression is equivalent to the conventional Coulomb interaction.
