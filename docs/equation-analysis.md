@@ -1,499 +1,357 @@
+# Equation Analysis, Errata and Clarifications
 
-# Equation Analysis of the Published Quantum Dot Model
+**Paper:** M. Ghasemi and M. R. Shokouhi, *Calculating the Eigenvalues of the Quantum Dot Operator Method and Exact Diagonalization Method*, International Journal of Smart Electrical Engineering, Vol. 9, No. 4, pp. 159–164 (2020).
 
-## 1. Equations (5)–(10): Preliminary Analysis
+This note revisits Eqs. (5)–(24) of our paper. Its purpose is to make the model easier to follow and to reproduce. We fix the notation and units, derive the single-particle result of Eq. (12), and list the typographical errors and ambiguities that we found in the published equations, together with the convention we adopt for each.
 
-### 1.1 Equation (5): Exponential Interaction Potential
+Throughout, we distinguish between (i) results that follow directly from the published equations, (ii) corrections suggested by algebraic or dimensional consistency, and (iii) modeling conventions that we state explicitly because the paper does not.
 
-The published expression is:
+## 0. Summary of issues
 
-\[
-V(x_1,x_2)=\frac{Ve^2}{2a}
-\exp\left(-\frac{x_1-x_2}{a}\right)
-\]
+| ID | Equation(s) | Issue | Treatment here |
+|---|---|---|---|
+| E1 | (5) | The exponential interaction has no absolute value in the separation, so it is not symmetric under exchange of the particles | Symmetric form adopted |
+| E2 | (5), (17)–(21) | Signs and exponent forms differ between these equations | One convention fixed in Sec. 6 |
+| E3 | (6), (12) | Unit system and the meaning of the dielectric parameter are not specified; Eq. (6) is singular at coinciding positions | Gaussian units for the single-particle derivation; regularization stated in Sec. 2.2 |
+| E4 | (8), (9) | The relation between the masses is not specified | Identical electrons, equal masses |
+| E5 | (8)–(10) | The confinement potential is not defined | Infinite square well adopted |
+| E6 | (10), (22), (24) | The well width is written both as L and as ℓ (ℓ is also a state index) | L is the well width; ℓ is an orbital index |
+| E7 | (13) | The spin-dependent expression conflicts with the result derived from Eq. (9) and is not dimensionally consistent | Not used here |
+| E8 | (14) | Both printed matrices are non-symmetric | Treated as an algebraic illustration only |
+| E9 | (15), (16) | The field points along x while the spin basis is defined by S_z | Spin-flip structure described in the S_z basis |
+| E10 | (16), (18)–(21) | Normalization and antisymmetry of the two-electron states are not specified | Explicit states defined; prefactor derived from them |
+| E11 | (24) | The final expression loses a factor of two in the spin-orbit term | Corrected from Eq. (23) |
+| E12 | Fig. 2 | Axis quantity, units and parameters are not specified | Treated as qualitative |
 
-The expression does not contain an absolute value in the exponent. Consequently, it is generally not invariant under particle exchange \(x_1 \leftrightarrow x_2\).
+## 1. Conventions and assumptions
 
-This requires clarification because the interaction between two identical particles is normally expected to depend symmetrically on their separation.
+- **Units:** Gaussian units are used in the derivation of Eq. (12).
+- **Particles:** two identical electrons, $`m_1=m_2=m`$.
+- **Spin basis:** the spinors $`\chi_s`$ are eigenstates of $`S_z`$:
 
-Equation (17) introduces an absolute value in the exponential, creating an inconsistency that must be resolved before implementation.
+```math
+S_z\chi_s=\frac{s\hbar}{2}\chi_s,\qquad s=\pm1
+```
 
-### 1.2 Equation (6): Coulomb Interaction
+- **Bohr radius:** in Gaussian units, without dielectric screening or effective-mass corrections,
 
-The published expression is:
+```math
+a_B=\frac{\hbar^2}{me^2}
+```
 
-\[
-V(x_1,x_2)=
-\frac{1}{4\pi\varepsilon^*}
-\frac{e^2}{x_1-x_2}
-\]
+  For a material-specific value, $`a_B^*=\varepsilon_r\hbar^2/(m^*e^2)`$ with the effective mass $`m^*`$ and the relative dielectric constant $`\varepsilon_r`$.
+- **Confinement:** an infinite square well of width $`L`$,
 
-The expression requires clarification concerning the sign convention and the absolute particle separation.
+```math
+u(x)=\begin{cases}0,&0<x<L,\\ \infty,&\text{otherwise.}\end{cases}
+```
 
-It is also singular at \(x_1=x_2\). A physically justified regularization would be required for a one-dimensional numerical implementation.
+- **Indices:** $`n,m,k,\ell=1,2,3,\dots`$. The symbol $`L`$ is reserved for the well width.
 
-### 1.3 Equation (7): Total Hamiltonian
+These choices give a consistent mathematical starting point. They are conventions, and they are stated here because the published text does not state them.
 
-\[
+## 2. Equations (5)–(10)
+
+### 2.1 Eq. (5): exponential interaction
+
+In the published version the exponent does not contain the absolute value of the separation:
+
+```math
+V(x_1,x_2)=\frac{Ve^2}{2a}\exp\left(-\frac{x_1-x_2}{a}\right)
+```
+
+This expression is not symmetric under $`x_1\leftrightarrow x_2`$, and it grows exponentially for $`x_1<x_2`$. For an interaction between identical particles that depends only on their distance, the appropriate form is
+
+```math
+V_{\exp}(x_1,x_2)=\frac{Ve^2}{2a}\exp\left(-\frac{|x_1-x_2|}{a}\right)
+```
+
+Here $`a`$ is a characteristic length and $`V`$ is a dimensionless strength. This is the form we use, and it is also the form that appears in Eq. (17).
+
+### 2.2 Eq. (6): Coulomb interaction
+
+The published expression is
+
+```math
+V_C(x_1,x_2)=\frac{1}{4\pi\varepsilon^*}\,\frac{e^2}{x_1-x_2}
+```
+
+Two points need attention.
+
+First, the separation should enter as $`|x_1-x_2|`$.
+
+Second, the prefactor depends on the unit system and on what $`\varepsilon^*`$ denotes (an SI permittivity, a relative dielectric constant, or an effective parameter). We therefore do not change the prefactor without defining $`\varepsilon^*`$. In Gaussian units, with $`\varepsilon_r`$ the relative dielectric constant, the three-dimensional form is $`e^2/(\varepsilon_r r)`$.
+
+A strictly one-dimensional Coulomb potential is singular at $`x_1=x_2`$. For numerical work, one possible effective regularization is
+
+```math
+V_{\mathrm{soft}}(x_1,x_2)=\frac{e^2}{\varepsilon_r\sqrt{(x_1-x_2)^2+\epsilon^2}},\qquad \epsilon>0
+```
+
+where $`\epsilon`$ plays the role of an effective transverse length. If it is not derived from a transverse confinement model, it should be treated as a free parameter and varied to test sensitivity. The exponential interaction of Eq. (17) is finite at $`x_1=x_2`$ and does not need this regularization.
+
+### 2.3 Eq. (7): total Hamiltonian
+
+```math
 H=H_1+H_2+\vartheta(x_1,x_2)
-\]
+```
 
-The total Hamiltonian is decomposed into two single-particle Hamiltonians and an interaction term.
+Two single-particle Hamiltonians plus the interaction between the particles.
 
-### 1.4 Equation (8): Two-Particle Hamiltonian
+### 2.4 Eq. (8): two-particle Hamiltonian
 
-The Hamiltonian includes:
+For equal masses, the Hamiltonian reads
 
-- Kinetic energy terms for both particles.
-- Confinement potentials.
-- Magnetic-field contributions.
-- Spin-orbit coupling terms.
-- Two-particle interaction.
+```math
+H=\sum_{i=1}^{2}\left[\frac{P_{x_i}^{2}}{2m}+u(x_i)+\frac{eg}{2mc}\,\mathbf{B}\cdot\mathbf{S}_i+\frac{2e^2\alpha}{\hbar^2}\,P_{x_i}S_{z_i}\right]+\vartheta(x_1,x_2)
+```
 
-The notation uses \(m_1\) and \(m_2\) in the kinetic terms but \(m\) in the magnetic contributions. The relationship between these masses is not specified.
+The values and physical meaning of $`g`$, $`m`$, $`\alpha`$ and the interaction parameters are not fixed by the published equations.
 
-### 1.5 Equation (9): Single-Particle Hamiltonian
+### 2.5 Eq. (9): single-particle Hamiltonian
 
-\[
-H_1=
--\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2}
-+u(x)+\frac{2e^2\alpha}{\hbar^2}P_xS_z
-\]
+```math
+H_1=-\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2}+u(x)+\frac{2e^2\alpha}{\hbar^2}\,P_xS_z
+```
 
-The definitions and units of the spin-orbit parameter and operators require verification.
+With $`S_z\chi_s=\frac{s\hbar}{2}\chi_s`$ and $`P_x=-i\hbar\,\partial_x`$, the spin-orbit term becomes $`\lambda s p`$, where
 
-### 1.6 Equation (10): Single-Particle Basis Function
+```math
+\lambda=\frac{\alpha e^2}{\hbar},\qquad p=P_x
+```
 
-The published basis function is read as:
+Inside the well,
 
-\[
-\psi_{n,s}(x)=
-\sqrt{\frac{2}{L}}\,
-e^{-i\alpha sx/a_B}
-\sin\left(\frac{n\pi x}{L}\right)\chi_s
-\]
+```math
+H_1=\frac{p^2}{2m}+\lambda s p
+```
 
-The basis combines a spatial sine function, a spin-dependent phase factor, and a spin state.
+In Gaussian units $`e^2/\hbar`$ has the dimension of a velocity, so $`\lambda p`$ is an energy when $`\alpha`$ is dimensionless.
 
-The notation for the well length appears inconsistently as \(L\) and \(l\) in the printed equation. The allowed values of \(n\), the definition of \(s\), and the dimensionality of \(\alpha\) require clarification.
+### 2.6 Eq. (10): single-particle basis
 
-## 2. Preliminary Scientific Issues
+```math
+\psi_{n,s}(x)=\sqrt{\frac{2}{L}}\;e^{-i\alpha s x/a_B}\,\sin\left(\frac{n\pi x}{L}\right)\chi_s
+```
 
-1. The exponential interaction in Equation (5) is not symmetric under particle exchange as printed.
-2. Equations (5) and (17) use different forms of the exponential dependence.
-3. Equation (6) requires a clear sign convention and treatment of its singularity.
-4. The relationship between \(m_1\), \(m_2\), and \(m\) is unspecified.
-5. The confinement potential \(u(x)\) is not explicitly defined.
-6. The spin-orbit operators and their parameter conventions require further examination.
-7. The single-particle basis notation and normalization require verification.
+Here $`L`$ is the well width (E6). With $`a_B=\hbar^2/(me^2)`$ we have $`\alpha/a_B=m\lambda/\hbar`$, so the phase factor equals $`e^{-im\lambda s x/\hbar}`$. Its role is derived in the next section.
 
-## 3. Implementation Status
+## 3. Equations (11)–(13): single-particle energy
 
-No numerical implementation of Equations (5)–(10) is considered finalized at this stage.
+### 3.1 Eq. (11)
 
-The mathematical definitions, physical assumptions, and unresolved ambiguities must be documented before constructing the computational model.
-
-
-## 4. Equations (11)–(13): Schrödinger Equation and Energy Expressions
-
-### 4.1 Equation (11): Stationary Schrödinger Equation
-
-The published expression is:
-
-\[
+```math
 H\Psi=E\Psi
-\]
+```
 
-This is the stationary eigenvalue equation.
+In the context of Eqs. (9)–(13), $`H`$ is the single-particle Hamiltonian $`H_1`$. The two-particle problem is treated in Secs. 4–8.
 
-The article does not clearly distinguish whether the Hamiltonian used at this stage is the single-particle Hamiltonian in Equation (9) or the complete two-particle Hamiltonian in Equation (8).
+### 3.2 Eq. (12): derivation
 
-This distinction must be clarified before numerical implementation.
+Inside the well, $`H_1=\frac{p^2}{2m}+\lambda s p`$. Since $`s^2=1`$, completing the square gives
 
-### 4.2 Equation (12): Reported Energy Eigenvalues
+```math
+H_1=\frac{(p+m\lambda s)^2}{2m}-\frac{m\lambda^2}{2}
+```
 
-The energy expression reported in the article is:
+Write $`\psi(x)=e^{-im\lambda s x/\hbar}\,\varphi(x)`$. Then $`(p+m\lambda s)\psi=e^{-im\lambda s x/\hbar}\,p\,\varphi`$, and therefore
 
-\[
-E_n=
-\frac{n^2\pi^2\hbar^2}{2mL^2}
--
-\frac{\alpha^2me^4}{2\hbar^2}
-\]
+```math
+H_1\psi=e^{-im\lambda s x/\hbar}\left[\frac{p^2}{2m}-\frac{m\lambda^2}{2}\right]\varphi
+```
 
-The first term corresponds to the energy eigenvalue of a one-dimensional infinite potential well.
+The phase factor has unit modulus, so the boundary conditions $`\psi(0)=\psi(L)=0`$ are equivalent to $`\varphi(0)=\varphi(L)=0`$. Hence $`\varphi_n\propto\sin(n\pi x/L)`$, which is exactly the spatial part of Eq. (10), and
 
-The second term is presented as an additional contribution associated with the parameter alpha.
+```math
+E_n=\frac{n^2\pi^2\hbar^2}{2mL^2}-\frac{m\lambda^2}{2}=\frac{n^2\pi^2\hbar^2}{2mL^2}-\frac{\alpha^2 m e^4}{2\hbar^2}
+```
 
-However, the derivation of this correction must be independently verified by applying the Hamiltonian in Equation (9) to the basis function in Equation (10).
+This reproduces Eq. (12). The spin-orbit correction is independent of both $`s`$ and $`n`$: in this model it is a uniform energy shift.
 
-The unit convention and parameter definitions are not sufficiently specified in the article to establish the validity of the complete expression.
+### 3.3 Eq. (13): spin-dependent expressions
 
-### 4.3 Equation (13): Spin-Dependent Energy Expressions
+In the published version, Eq. (13) gives spin-dependent energies containing terms of the form
 
-Equation (13) considers the two spin cases:
+```math
+\alpha^2e^2\left(\frac12\pm\frac1{a_B}\right)+E_n
+```
 
-\[
-s=-1,\qquad s=+1
-\]
+Under the conventions above, there are two problems (E7):
 
-The printed algebraic expressions are not sufficiently clear to permit an unambiguous transcription of every intermediate and final term.
+1. The spin-dependent splitting contradicts the derivation of Sec. 3.2. With the spin-orbit term along $`S_z`$ and hard-wall boundary conditions, the correction does not depend on $`s`$.
+2. The sum $`\frac12+\frac1{a_B}`$ adds a dimensionless number to an inverse length, so it is not dimensionally consistent.
 
-The following points require clarification:
+We therefore do not use Eq. (13). Eq. (12) is not affected. This conclusion refers to the equation as published and to the conventions stated in this note.
 
-- The convention used for the spin quantum number.
-- The eigenvalues and units assigned to the spin operator \(S_z\).
-- The relationship between the spin-dependent energy and the magnetic-field contribution.
-- The dimensional consistency of the terms involving the Bohr radius \(a_B\).
+## 4. Eq. (14): exact diagonalization
 
-The expression must be checked against the original Hamiltonian rather than assumed to be correct.
+We illustrated the matrix formulation with
 
-## 5. Preliminary Scientific Issues: Equations (11)–(13)
+```math
+H_{\alpha\beta}=\begin{pmatrix}1&2&0\\2&1&3\\-1&0&1\end{pmatrix},\qquad
+u_{\alpha\beta}=\begin{pmatrix}2&3&1\\3&1&0\\2&0&1\end{pmatrix}
+```
 
-1. The Hamiltonian used in Equation (11) is not explicitly identified as a single-particle or two-particle operator.
-2. The energy correction in Equation (12) requires independent derivation.
-3. The unit convention and definitions of the parameters in Equation (12) are incomplete.
-4. The spin-dependent expressions in Equation (13) require clarification.
-5. The spin convention must be consistent with the definition of \(S_z\) in the Hamiltonian.
+The corresponding system is
 
-## 6. Implementation Status
+```math
+\sum_j\left(H_{ij}-E\,u_{ij}\right)\Psi_j=0
+```
 
-Equations (11)–(13) have been recorded as published relations, but their energy expressions have not yet been independently validated.
+and a non-trivial solution requires $`\det(H-Eu)=0`$. This is the form of a generalized eigenvalue problem,
 
-No numerical results based on these expressions should be presented as verified reproductions of the article.
+```math
+H\mathbf{c}=E\,S\,\mathbf{c}
+```
 
-## 7. Equation (14): Exact Diagonalization Formulation
+where $`S`$ is the overlap matrix of a non-orthogonal basis. Here $`u_{\alpha\beta}`$ plays the role of $`S`$ (E8).
 
-The article introduces two \(3\times3\) matrices:
+A qualification is needed. For a Hermitian Hamiltonian in a basis of real functions, $`H`$ must be symmetric, and $`S`$ must be symmetric and positive definite. Both printed matrices are non-symmetric, so taken literally they are not admissible Hamiltonian and overlap matrices, and their generalized eigenvalues are not guaranteed to be real. They illustrate the algebraic form of the method only. They are not built from the Hamiltonian of Eq. (8), and their eigenvalues are not quantum-dot energy levels.
 
-\[
-H_{\alpha\beta}=
-\begin{pmatrix}
-1&2&0\\
-2&1&3\\
--1&0&1
-\end{pmatrix}
-\]
+For the sine basis of Eq. (10), the spatial functions are orthonormal on $`[0,L]`$,
 
-and
+```math
+\int_0^L \phi_n^*(x)\,\phi_m(x)\,dx=\delta_{nm}
+```
 
-\[
-u_{\alpha\beta}=
-\begin{pmatrix}
-2&3&1\\
-3&1&0\\
-2&0&1
-\end{pmatrix}.
-\]
+so $`S_{ij}=\delta_{ij}`$ and the problem reduces to the ordinary eigenvalue problem $`H\mathbf{c}=E\mathbf{c}`$.
 
-The corresponding system of equations is expressed as:
+## 5. Eqs. (15)–(16): Zeeman term
 
-\[
-\sum_j(H_{ij}-Eu_{ij})\Psi_j=0.
-\]
+Eq. (15) takes the magnetic field along $`x`$:
 
-In matrix form, this can be written as:
+```math
+\mathbf{B}=B\,\hat{x},\qquad \mathbf{B}\cdot\mathbf{S}=B\,S_x
+```
 
-\[
-(H-Eu)\boldsymbol{\Psi}=0.
-\]
+The spin basis is the eigenbasis of $`S_z`$ (E9). In this basis,
 
-For a non-trivial solution, the generalized eigenvalue condition is:
+```math
+S_x=\frac{\hbar}{2}\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+\langle\chi_{s'}|S_x|\chi_s\rangle=\frac{\hbar}{2}\,\delta_{s',-s}
+```
 
-\[
-\det(H-Eu)=0.
-\]
+so the Zeeman term produces spin-flip matrix elements. Because it acts only on spin, the spatial part of its matrix elements is an overlap of orbital functions, which for the orthonormal sine basis imposes the corresponding selection rules on the orbital indices.
 
-### 7.1 Interpretation
+## 6. Eq. (17): interaction potential
 
-This formulation resembles a generalized eigenvalue problem, commonly encountered when a Hamiltonian is represented in a non-orthogonal basis.
+In the published version,
 
-In the conventional formulation:
+```math
+\vartheta(x_1,x_2)=-\frac{Ve^2}{2a}\exp\left(-\frac{|x_1-x_2|}{a}\right)
+```
 
-- \(H\) represents the Hamiltonian matrix.
-- \(S\) represents the basis overlap matrix.
-- \(E\) represents an energy eigenvalue.
-- \(\boldsymbol{\Psi}\) contains the expansion coefficients of the eigenstate.
+This is an effective exponential interaction, not the Coulomb potential of Eq. (6). The length $`a`$ sets its range and $`V`$ its strength.
 
-The conventional equation is:
+The sign is not consistent across the published equations (E2): Eq. (17) carries a negative prefactor, Eqs. (18)–(21) carry a positive one, and the intermediate lines of Eq. (17) also mix signs and exponent forms. We adopt the convention
 
-\[
-H\mathbf{c}=ES\mathbf{c}.
-\]
+```math
+\vartheta(x_1,x_2)=+\frac{Ve^2}{2a}\exp\left(-\frac{|x_1-x_2|}{a}\right),\qquad V>0
+```
 
-However, the article denotes the second matrix by \(u_{\alpha\beta}\), without explicitly defining whether it is an overlap matrix.
+which is repulsive, as the electron-electron interaction is. This is a modeling convention. An attractive interaction is obtained by reversing the sign, and any calculation must use one stated sign throughout.
 
-### 7.2 Scientific Issues Requiring Verification
+## 7. Eqs. (18)–(21): interaction matrix elements
 
-1. The physical meaning of the matrix \(u_{\alpha\beta}\) is not explicitly defined.
-2. If \(u_{\alpha\beta}\) is intended to be an overlap matrix, its lack of symmetry is inconsistent with the usual requirements for an overlap matrix of real basis functions.
-3. The printed Hamiltonian matrix is also non-symmetric.
-4. The article does not explain how the numerical matrix elements were calculated from the physical Hamiltonian.
-5. The units and physical scaling of the matrix elements are not specified.
-6. The relationship between these illustrative matrices and the two-electron quantum-dot Hamiltonian introduced earlier is unclear.
+### 7.1 Antisymmetrized two-electron states
 
-### 7.3 Implementation Status
+For two identical fermions the wavefunction must be antisymmetric under exchange. For two distinct orthonormal spin-orbitals we use
 
-Equation (14) has been identified as a generalized eigenvalue formulation.
+```math
+|n,s_n;\ell,s_\ell\rangle=\frac{1}{\sqrt{2}}\left[\psi_{n,s_n}(x_1)\,\psi_{\ell,s_\ell}(x_2)-\psi_{\ell,s_\ell}(x_1)\,\psi_{n,s_n}(x_2)\right]
+```
 
-The printed matrices are documented as published, but their physical interpretation and consistency have not been established.
+If the two spin-orbitals coincide, this state vanishes (Pauli principle).
 
-They must not be treated as validated numerical results for the quantum-dot system without further justification.
+### 7.2 Structure of the matrix element
 
-## 8. Equations (15)–(16): Magnetic-Field Contribution
+Expanding the bra and the ket in
 
-### 8.1 Equation (15): Magnetic-Field Direction
+```math
+\langle m,s_m;k,s_k|\,\vartheta\,|n,s_n;\ell,s_\ell\rangle
+```
 
-The article assumes that the magnetic field is directed along the \(x\)-axis:
+gives four terms (direct and exchange). The product of the two normalization factors is $`\frac{1}{\sqrt2}\cdot\frac{1}{\sqrt2}=\frac12`$. A typical spatial integral is
 
-\[
-\vec B=B\hat{i}.
-\]
+```math
+I=\frac{Ve^2}{2a}\cdot\frac12\cdot\frac{4}{L^2}\int_0^L\!\!\int_0^L \Phi(x_1,x_2)\,\exp\left(-\frac{|x_1-x_2|}{a}\right)dx_1\,dx_2
+```
 
-Consequently,
+with, for example,
 
-\[
-\vec B\cdot\vec S=BS_x.
-\]
+```math
+\Phi=\sin\frac{n\pi x_1}{L}\,\sin\frac{m\pi x_1}{L}\,\sin\frac{\ell\pi x_2}{L}\,\sin\frac{k\pi x_2}{L}
+```
 
-This specifies the spin component associated with the magnetic-field contribution in this part of the operator-method calculation.
+The four terms differ in how the orbital indices are assigned to $`x_1`$ and $`x_2`$, and the Kronecker deltas of the spin indices select the direct and exchange contributions.
 
-An important point is that the spin-orbit terms in Equation (8) are expressed using \(S_z\), whereas Equation (15) introduces \(S_x\).
+### 7.3 Points to note (E10)
 
-The relationship between these spin components and the spin basis used in the subsequent calculations must therefore be clarified.
+1. **Prefactor.** With normalized antisymmetric bra and ket, the expansion gives $`1/2`$, whereas the published equations show $`1/\sqrt2`$. This correction depends on the basis-state definition of Sec. 7.1. The factor $`4/L^2`$ comes from the four sine normalizations.
+2. **Absolute value.** With $`|x_1-x_2|`$ in the exponent, each double integral is evaluated by splitting the domain into $`x_1>x_2`$ and $`x_1<x_2`$, analytically or by numerical quadrature.
+3. **Signs.** The relative signs of direct and exchange terms follow from the antisymmetrization and should be taken from the full bra-ket expansion.
+4. **Hermiticity.** With a real symmetric interaction and an orthonormal basis, the interaction matrix is Hermitian.
 
-### 8.2 Equation (16): Magnetic-Field Matrix Element
+## 8. Eqs. (22)–(24): non-interacting two-particle energies
 
-Equation (16) presents a matrix element of the magnetic-field operator between two-particle basis states.
+### 8.1 Eq. (22)
 
-The expression contains spatial wave functions and spin states associated with both electrons. Its structure appears to involve multiple product-state contributions, consistent with the construction of two-particle states.
+Eq. (22) gives the matrix element of the non-interacting part of the Hamiltonian between two-particle states. It has direct and exchange parts with Kronecker deltas, and its spin-orbit term is the sum of the two single-particle shifts of Eq. (12).
 
-However, the article does not sufficiently specify:
+### 8.2 Eq. (23)
 
-- The complete definition and normalization of the two-particle basis states.
-- The spin-state convention used for the basis.
-- Whether the states are explicitly antisymmetrized.
-- The precise ordering of particle and spin indices.
-- The assumptions used to evaluate the matrix element.
-- The relationship between the spin basis and the \(S_x\) operator introduced in Equation (15).
+```math
+\varepsilon_n=\frac{n^2\pi^2\hbar^2}{2mL^2}-\frac{\alpha^2 m e^4}{2\hbar^2},\qquad
+\varepsilon_\ell=\frac{\ell^2\pi^2\hbar^2}{2mL^2}-\frac{\alpha^2 m e^4}{2\hbar^2}
+```
 
-The full expression should be transcribed and independently derived before numerical implementation.
+Adding them,
 
-### 8.3 Scientific Issues Requiring Verification
+```math
+\varepsilon_n+\varepsilon_\ell=\frac{(n^2+\ell^2)\pi^2\hbar^2}{2mL^2}-\frac{\alpha^2 m e^4}{\hbar^2}
+```
 
-1. The magnetic field is assumed to point along the \(x\)-axis in Equation (15).
-2. The spin-orbit interaction in Equation (8) uses \(S_z\), requiring a consistent choice of spin quantization axis or an explicit basis transformation.
-3. The normalization and antisymmetry of the two-electron basis states need verification.
-4. The matrix elements in Equation (16) must be derived from explicitly defined basis functions.
-5. The article does not provide enough information to reproduce the complete numerical matrix directly from Equation (16).
+### 8.3 Eq. (24): missing factor of two (E11)
 
-### 8.4 Implementation Status
+The intermediate line of Eq. (24) contains $`-\frac{2\alpha^2me^4}{2\hbar^2}`$, which agrees with the sum above. The final line, however, reads
 
-Equations (15) and (16) have been recorded as part of the published operator-method formulation.
+```math
+-\frac{\alpha^2 m e^4}{2\hbar^2}+(n^2+\ell^2)\,\frac{\pi^2\hbar^2}{2mL^2}
+```
 
-Their matrix elements have not yet been independently derived or numerically validated. No numerical implementation should be based on an assumed interpretation of the incomplete basis definitions.
+so a factor of two is lost in the spin-orbit term, and the symbol $`\ell`$ appears in the denominator where the well width $`L`$ is meant (E6). The corrected expression is
 
-## 9. Equation (17): Electron–Electron Interaction Potential
+```math
+E_{n\ell}=\frac{(n^2+\ell^2)\pi^2\hbar^2}{2mL^2}-\frac{\alpha^2 m e^4}{\hbar^2}
+```
 
-### 9.1 Published Interaction Potential
+in agreement with Eq. (22), Eq. (23) and the sum of the two single-particle energies of Eq. (12).
 
-The article introduces the following interaction potential:
+## 9. Figure 2
 
-\[
-\vartheta(x_1,x_2)=
--\frac{Ve^2}{2a}
-\exp\left(-\frac{|x_1-x_2|}{a}\right).
-\]
+Fig. 2 shows eigenvalues as a function of a parameter. In the text we described the values as approximately constant over $`(0,\,0.1)`$ and rising steeply over $`(0.2,\,0.4)`$. The published paper does not specify the quantity on the horizontal axis, its units, the values of $`L`$, $`a`$, $`V`$, $`\alpha`$ and $`B`$, the basis size, or the numerical procedure.
 
-The corresponding matrix element is expressed as:
+For this reason the figure is treated as a qualitative illustration here. This note makes no quantitative claim based on the constant or the steep region, and it does not present Fig. 2 as a verified consequence of Eqs. (5)–(24).
 
-\[
-\langle m,s_m;k,s_k|
-\vartheta(x_1,x_2)
-|n,s_n;\ell,s_\ell\rangle.
-\]
+## 10. Status of the equations
 
-The matrix element is intended to describe the interaction contribution between two-particle basis states.
+| Equation(s) | Assessment |
+|---|---|
+| (5) | Symmetry issue identified; symmetric form adopted |
+| (6) | Prefactor depends on the definition of the dielectric parameter; regularization is an explicit model choice |
+| (7) | Decomposition is well defined |
+| (8), (9) | Well defined under the conventions of Sec. 1; parameter values not fixed by the paper |
+| (10) | Interpreted with the infinite-well assumption and the stated Bohr radius |
+| (11), (12) | Single-particle energy derived by completing the square |
+| (13) | Inconsistent with the derivation and dimensionally problematic as published; not used |
+| (14) | Valid generalized eigenvalue form; printed matrices are illustrative only |
+| (15), (16) | Spin-flip structure clarified in the $`S_z`$ basis |
+| (17) | Sign inconsistency identified; repulsive convention adopted |
+| (18)–(21) | Antisymmetric construction made explicit; prefactor depends on the stated normalization |
+| (22), (23) | Consistent with the sum of single-particle energies |
+| (24) | Missing factor of two and the width notation corrected |
+| Fig. 2 | Treated as qualitative |
 
-### 9.2 Interpretation
+## 11. Scope
 
-The interaction potential in Equation (17) has an exponential dependence on the inter-particle separation.
-
-It should not be identified directly with the conventional Coulomb potential:
-
-\[
-V_C(r)=\frac{e^2}{4\pi\varepsilon r}.
-\]
-
-Instead, it represents an effective exponential interaction model.
-
-The parameter \(a\) controls the characteristic length scale of the exponential decay, while the physical meaning and units of \(V\) require clarification.
-
-### 9.3 Scientific Issues Requiring Verification
-
-1. Equation (17) contains an absolute value in the exponential, whereas the earlier interaction expression in Equation (5) appears to use a different form.
-2. The negative sign in Equation (17) requires physical justification. For two electrons, the electrostatic Coulomb interaction is repulsive.
-3. The physical definitions and units of \(V\) and \(a\) are not sufficiently specified.
-4. The relationship between the exponential interaction and the Coulomb expression introduced in Equation (6) is not established.
-5. The two-particle matrix element must be evaluated using explicitly defined and properly normalized basis states.
-6. The treatment of particle exchange and spin symmetry must be consistent with fermionic antisymmetry.
-
-### 9.4 Implementation Status
-
-Equation (17) has been recorded as the published effective interaction potential.
-
-Its physical interpretation, sign convention, parameter definitions, and matrix elements have not yet been independently validated.
-
-No numerical implementation should assume that this exponential expression is equivalent to the conventional Coulomb interaction.
-
-## 10. Equations (18)–(21): Components of the Interaction Matrix Element
-
-### 10.1 General Structure
-
-Equations (18)–(21) present separate contributions to the two-particle matrix element of the interaction potential introduced in Equation (17).
-
-The expressions involve:
-
-- Double spatial integrals over the two electron coordinates.
-- Products of sine functions corresponding to the single-particle basis states.
-- Exponential factors associated with the effective interaction potential.
-- Kronecker delta factors involving the spin quantum numbers.
-
-The general structure of these contributions can be represented schematically as:
-
-\[
-I=\int_0^L\int_0^L
-\Phi(x_1,x_2)
-\exp\left(-\frac{x_1-x_2}{a}\right)
-\,dx_1\,dx_2,
-\]
-
-where \(\Phi(x_1,x_2)\) represents a product of the spatial basis functions.
-
-This expression is only a schematic representation of the integral structure and is not a transcription of any individual published equation.
-
-### 10.2 Equation (18): First Contribution
-
-Equation (18) presents one contribution to the interaction matrix element, involving products of spatial wave functions and spin-selection factors.
-
-The spin-dependent Kronecker deltas determine which combinations of spin quantum numbers contribute to this term.
-
-### 10.3 Equation (19): Second Contribution
-
-Equation (19) presents another contribution with a different arrangement of the spatial basis functions and spin indices.
-
-Its structure must be considered together with the remaining terms to establish the complete interaction matrix element.
-
-### 10.4 Equation (20): Third Contribution
-
-Equation (20) introduces a further integral contribution with a different ordering of the spatial functions and spin-selection factors.
-
-The relationship between this term and the preceding contributions requires verification using the explicitly defined two-particle basis states.
-
-### 10.5 Equation (21): Fourth Contribution
-
-Equation (21) completes the set of interaction contributions presented in this part of the article.
-
-The full expression should be interpreted together with Equations (18)–(20), rather than as an independent interaction potential.
-
-### 10.6 Scientific Issues Requiring Verification
-
-1. The precise ordering of the spatial indices in Equations (18)–(21) must be checked against the original printed equations.
-2. The spin-selection rules represented by the Kronecker deltas must be derived from the two-particle spin states.
-3. The exponential factor appearing in the expanded integrals must be checked for consistency with Equation (17), particularly regarding the absolute value of the particle separation.
-4. The integration limits and normalization factors must be verified.
-5. The four contributions must be combined without double-counting direct or exchange terms.
-6. The resulting interaction matrix must satisfy the appropriate Hermiticity condition for a physical Hamiltonian.
-
-### 10.7 Implementation Status
-
-Equations (18)–(21) have been identified as separate contributions to the interaction matrix element.
-
-Their complete algebraic transcription, combination, and numerical evaluation have not yet been independently validated.
-
-No numerical interaction matrix should be constructed from an assumed interpretation of the unclear printed indices.
-
-## 11. Equations (22)–(24): Total Hamiltonian and Energy Expressions
-
-### 11.1 Equation (22): Two-Particle Hamiltonian Matrix Element
-
-Equation (22) presents a matrix element of the non-interacting part of the two-particle Hamiltonian, denoted by \(H_{01}\).
-
-Its structure contains:
-
-- A kinetic-energy contribution involving the quantum numbers \(n\) and \(\ell\).
-- An additional energy contribution associated with the parameter \(\alpha\).
-- Kronecker delta factors imposing spin and spatial-state selection rules.
-- A difference between direct and exchange contributions.
-
-The expression therefore appears to incorporate the exchange structure of a two-particle basis.
-
-However, the precise algebraic form and the meaning of all indices must be checked against the explicitly defined basis states before implementation.
-
-### 11.2 Equation (23): Single-Particle Energy Contributions
-
-The article defines two energy quantities:
-
-\[
-\varepsilon_n=
-\frac{n^2\pi^2\hbar^2}{2mL^2}
--\frac{\alpha^2me^4}{2\hbar^2}
-\]
-
-and
-
-\[
-\varepsilon_\ell=
-\frac{\ell^2\pi^2\hbar^2}{2mL^2}
--\frac{\alpha^2me^4}{2\hbar^2}.
-\]
-
-The article then considers their sum:
-
-\[
-\varepsilon_n+\varepsilon_\ell.
-\]
-
-These expressions are presented as the individual energy contributions associated with the two spatial quantum numbers.
-
-### 11.3 Equation (24): Reported Total Energy Expression
-
-The article presents the following final expression:
-
-\[
-E=
--\frac{\alpha^2me^4}{2\hbar^2}
-+
-(n^2+\ell^2)
-\frac{\pi^2\hbar^2}{2mL^2}.
-\]
-
-This expression must be checked against the preceding definitions in Equation (23).
-
-### 11.4 Scientific Issues Requiring Verification
-
-1. Equation (22) contains direct and exchange contributions. Their signs and Kronecker delta factors must be derived from properly antisymmetrized two-electron states.
-2. The relationship between \(H_{01}\) and the complete Hamiltonian introduced in Equation (8) is not sufficiently explained.
-3. The energy expressions in Equation (23) contain the same \(\alpha\)-dependent contribution for both particles.
-4. Adding the two expressions in Equation (23) gives:
-
-\[
-\varepsilon_n+\varepsilon_\ell
-=
-\frac{(n^2+\ell^2)\pi^2\hbar^2}{2mL^2}
--\frac{\alpha^2me^4}{\hbar^2}.
-\]
-
-5. This result differs by a factor of two in the \(\alpha\)-dependent contribution from the final expression printed in Equation (24).
-6. The discrepancy must be resolved before Equation (24) is used in any numerical calculation.
-7. The notation for the confinement length must be made consistent throughout the article and the reconstructed model.
-
-### 11.5 Implementation Status
-
-Equations (22)–(24) have been documented as published.
-
-The direct and exchange matrix elements have not yet been independently derived.
-
-The inconsistency between Equations (23) and (24) has been identified and requires resolution.
-
-No numerical results should be presented as a verified reproduction of the published energy expression until this discrepancy and the underlying Hamiltonian have been independently checked.
+This note clarifies the mathematical structure of the published equations and fixes the conventions needed to implement the model. It does not claim that every parameter or approximation coincides with those used for the figures in the paper. Numerical results computed from these conventions will be added to the repository with their parameters, basis size, integration and diagonalization methods, and convergence checks documented alongside them.
