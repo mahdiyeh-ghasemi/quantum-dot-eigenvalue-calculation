@@ -45,3 +45,22 @@ The authors acknowledge Dr. Mohammad Reza Tanhayi for his valuable comments.
 - Received: 20 December 2020
 - Revised: 20 February 2021
 - Accepted: 25 February 2021
+
+## Scope and Reproducibility
+
+This repository provides an independent computational reconstruction of the theoretical and numerical framework presented in the published article:
+
+*Calculating the Eigenvalues of the Quantum Dot Operator Method and Exact Diagonalization Method* (2020).
+
+The original computational source code, numerical input files, and supplementary calculation records are not available. Therefore, the implementation is being developed independently using the equations and descriptions provided in the published paper.
+
+The reconstruction distinguishes between:
+
+- Mathematical relations explicitly provided in the article.
+- Physical assumptions required to formulate a consistent computational model.
+- Numerical results independently calculated in this repository.
+- Ambiguities and limitations in the published description.
+
+The objective is to investigate the mathematical consistency of the model, implement the relevant numerical methods, and assess the reproducibility of the reported approach.
+
+New calculations and extensions developed in this repository are independent computational work and should not be interpreted as additional results from the original publication.
