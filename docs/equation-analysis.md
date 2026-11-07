@@ -239,3 +239,56 @@ Equation (14) has been identified as a generalized eigenvalue formulation.
 The printed matrices are documented as published, but their physical interpretation and consistency have not been established.
 
 They must not be treated as validated numerical results for the quantum-dot system without further justification.
+
+## 8. Equations (15)–(16): Magnetic-Field Contribution
+
+### 8.1 Equation (15): Magnetic-Field Direction
+
+The article assumes that the magnetic field is directed along the \(x\)-axis:
+
+\[
+\vec B=B\hat{i}.
+\]
+
+Consequently,
+
+\[
+\vec B\cdot\vec S=BS_x.
+\]
+
+This specifies the spin component associated with the magnetic-field contribution in this part of the operator-method calculation.
+
+An important point is that the spin-orbit terms in Equation (8) are expressed using \(S_z\), whereas Equation (15) introduces \(S_x\).
+
+The relationship between these spin components and the spin basis used in the subsequent calculations must therefore be clarified.
+
+### 8.2 Equation (16): Magnetic-Field Matrix Element
+
+Equation (16) presents a matrix element of the magnetic-field operator between two-particle basis states.
+
+The expression contains spatial wave functions and spin states associated with both electrons. Its structure appears to involve multiple product-state contributions, consistent with the construction of two-particle states.
+
+However, the article does not sufficiently specify:
+
+- The complete definition and normalization of the two-particle basis states.
+- The spin-state convention used for the basis.
+- Whether the states are explicitly antisymmetrized.
+- The precise ordering of particle and spin indices.
+- The assumptions used to evaluate the matrix element.
+- The relationship between the spin basis and the \(S_x\) operator introduced in Equation (15).
+
+The full expression should be transcribed and independently derived before numerical implementation.
+
+### 8.3 Scientific Issues Requiring Verification
+
+1. The magnetic field is assumed to point along the \(x\)-axis in Equation (15).
+2. The spin-orbit interaction in Equation (8) uses \(S_z\), requiring a consistent choice of spin quantization axis or an explicit basis transformation.
+3. The normalization and antisymmetry of the two-electron basis states need verification.
+4. The matrix elements in Equation (16) must be derived from explicitly defined basis functions.
+5. The article does not provide enough information to reproduce the complete numerical matrix directly from Equation (16).
+
+### 8.4 Implementation Status
+
+Equations (15) and (16) have been recorded as part of the published operator-method formulation.
+
+Their matrix elements have not yet been independently derived or numerically validated. No numerical implementation should be based on an assumed interpretation of the incomplete basis definitions.
