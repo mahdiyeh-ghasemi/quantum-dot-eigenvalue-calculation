@@ -56,3 +56,31 @@ The operator formulation, basis-state definitions, and derivation of the reporte
 No numerical implementation will be considered a faithful reproduction of the published results until the mathematical model, physical assumptions, and required parameters have been identified and verified.
 
 Any additional assumptions or modifications will be explicitly documented as independent computational choices.
+
+## 6. Preliminary Analysis of the Basis Functions
+
+### 6.1 Single-Particle Basis
+
+Equation (10) introduces a single-particle state consisting of:
+
+- A sine function associated with an infinite square-well basis.
+- A position- and spin-dependent complex phase factor.
+- A spin basis function.
+
+The expression contains the parameters n, s, L, alpha, and a_B.
+
+Their definitions, physical dimensions, and parameter conventions require further verification before numerical implementation.
+
+### 6.2 Two-Particle Basis
+
+Equation (16) introduces a two-particle construction involving products of single-particle spatial and spin functions.
+
+The exchange structure appears to incorporate particle antisymmetry. However, the precise spin and spatial symmetry conventions must be verified before constructing the computational basis.
+
+### 6.3 Open Questions
+
+- What are the exact definitions and dimensions of alpha and a_B?
+- What are the allowed values of the spin index s?
+- How are the two-particle quantum numbers assigned?
+- Does the basis satisfy fermionic antisymmetry?
+- Is the basis orthonormal under the conventions used in the article?
