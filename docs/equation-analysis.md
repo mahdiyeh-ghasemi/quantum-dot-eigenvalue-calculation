@@ -345,3 +345,70 @@ Equation (17) has been recorded as the published effective interaction potential
 Its physical interpretation, sign convention, parameter definitions, and matrix elements have not yet been independently validated.
 
 No numerical implementation should assume that this exponential expression is equivalent to the conventional Coulomb interaction.
+
+## 10. Equations (18)–(21): Components of the Interaction Matrix Element
+
+### 10.1 General Structure
+
+Equations (18)–(21) present separate contributions to the two-particle matrix element of the interaction potential introduced in Equation (17).
+
+The expressions involve:
+
+- Double spatial integrals over the two electron coordinates.
+- Products of sine functions corresponding to the single-particle basis states.
+- Exponential factors associated with the effective interaction potential.
+- Kronecker delta factors involving the spin quantum numbers.
+
+The general structure of these contributions can be represented schematically as:
+
+\[
+I=\int_0^L\int_0^L
+\Phi(x_1,x_2)
+\exp\left(-\frac{x_1-x_2}{a}\right)
+\,dx_1\,dx_2,
+\]
+
+where \(\Phi(x_1,x_2)\) represents a product of the spatial basis functions.
+
+This expression is only a schematic representation of the integral structure and is not a transcription of any individual published equation.
+
+### 10.2 Equation (18): First Contribution
+
+Equation (18) presents one contribution to the interaction matrix element, involving products of spatial wave functions and spin-selection factors.
+
+The spin-dependent Kronecker deltas determine which combinations of spin quantum numbers contribute to this term.
+
+### 10.3 Equation (19): Second Contribution
+
+Equation (19) presents another contribution with a different arrangement of the spatial basis functions and spin indices.
+
+Its structure must be considered together with the remaining terms to establish the complete interaction matrix element.
+
+### 10.4 Equation (20): Third Contribution
+
+Equation (20) introduces a further integral contribution with a different ordering of the spatial functions and spin-selection factors.
+
+The relationship between this term and the preceding contributions requires verification using the explicitly defined two-particle basis states.
+
+### 10.5 Equation (21): Fourth Contribution
+
+Equation (21) completes the set of interaction contributions presented in this part of the article.
+
+The full expression should be interpreted together with Equations (18)–(20), rather than as an independent interaction potential.
+
+### 10.6 Scientific Issues Requiring Verification
+
+1. The precise ordering of the spatial indices in Equations (18)–(21) must be checked against the original printed equations.
+2. The spin-selection rules represented by the Kronecker deltas must be derived from the two-particle spin states.
+3. The exponential factor appearing in the expanded integrals must be checked for consistency with Equation (17), particularly regarding the absolute value of the particle separation.
+4. The integration limits and normalization factors must be verified.
+5. The four contributions must be combined without double-counting direct or exchange terms.
+6. The resulting interaction matrix must satisfy the appropriate Hermiticity condition for a physical Hamiltonian.
+
+### 10.7 Implementation Status
+
+Equations (18)–(21) have been identified as separate contributions to the interaction matrix element.
+
+Their complete algebraic transcription, combination, and numerical evaluation have not yet been independently validated.
+
+No numerical interaction matrix should be constructed from an assumed interpretation of the unclear printed indices.
