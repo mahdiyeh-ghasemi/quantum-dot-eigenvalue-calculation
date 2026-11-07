@@ -412,3 +412,88 @@ Equations (18)–(21) have been identified as separate contributions to the inte
 Their complete algebraic transcription, combination, and numerical evaluation have not yet been independently validated.
 
 No numerical interaction matrix should be constructed from an assumed interpretation of the unclear printed indices.
+
+## 11. Equations (22)–(24): Total Hamiltonian and Energy Expressions
+
+### 11.1 Equation (22): Two-Particle Hamiltonian Matrix Element
+
+Equation (22) presents a matrix element of the non-interacting part of the two-particle Hamiltonian, denoted by \(H_{01}\).
+
+Its structure contains:
+
+- A kinetic-energy contribution involving the quantum numbers \(n\) and \(\ell\).
+- An additional energy contribution associated with the parameter \(\alpha\).
+- Kronecker delta factors imposing spin and spatial-state selection rules.
+- A difference between direct and exchange contributions.
+
+The expression therefore appears to incorporate the exchange structure of a two-particle basis.
+
+However, the precise algebraic form and the meaning of all indices must be checked against the explicitly defined basis states before implementation.
+
+### 11.2 Equation (23): Single-Particle Energy Contributions
+
+The article defines two energy quantities:
+
+\[
+\varepsilon_n=
+\frac{n^2\pi^2\hbar^2}{2mL^2}
+-\frac{\alpha^2me^4}{2\hbar^2}
+\]
+
+and
+
+\[
+\varepsilon_\ell=
+\frac{\ell^2\pi^2\hbar^2}{2mL^2}
+-\frac{\alpha^2me^4}{2\hbar^2}.
+\]
+
+The article then considers their sum:
+
+\[
+\varepsilon_n+\varepsilon_\ell.
+\]
+
+These expressions are presented as the individual energy contributions associated with the two spatial quantum numbers.
+
+### 11.3 Equation (24): Reported Total Energy Expression
+
+The article presents the following final expression:
+
+\[
+E=
+-\frac{\alpha^2me^4}{2\hbar^2}
++
+(n^2+\ell^2)
+\frac{\pi^2\hbar^2}{2mL^2}.
+\]
+
+This expression must be checked against the preceding definitions in Equation (23).
+
+### 11.4 Scientific Issues Requiring Verification
+
+1. Equation (22) contains direct and exchange contributions. Their signs and Kronecker delta factors must be derived from properly antisymmetrized two-electron states.
+2. The relationship between \(H_{01}\) and the complete Hamiltonian introduced in Equation (8) is not sufficiently explained.
+3. The energy expressions in Equation (23) contain the same \(\alpha\)-dependent contribution for both particles.
+4. Adding the two expressions in Equation (23) gives:
+
+\[
+\varepsilon_n+\varepsilon_\ell
+=
+\frac{(n^2+\ell^2)\pi^2\hbar^2}{2mL^2}
+-\frac{\alpha^2me^4}{\hbar^2}.
+\]
+
+5. This result differs by a factor of two in the \(\alpha\)-dependent contribution from the final expression printed in Equation (24).
+6. The discrepancy must be resolved before Equation (24) is used in any numerical calculation.
+7. The notation for the confinement length must be made consistent throughout the article and the reconstructed model.
+
+### 11.5 Implementation Status
+
+Equations (22)–(24) have been documented as published.
+
+The direct and exchange matrix elements have not yet been independently derived.
+
+The inconsistency between Equations (23) and (24) has been identified and requires resolution.
+
+No numerical results should be presented as a verified reproduction of the published energy expression until this discrepancy and the underlying Hamiltonian have been independently checked.
