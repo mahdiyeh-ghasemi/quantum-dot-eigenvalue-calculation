@@ -1,8 +1,8 @@
 # Quantum Dot Eigenvalue Calculation
 
-This repository presents my published research on the calculation of eigenvalues in quantum dot systems using operator methods and exact diagonalization.
+This repository accompanies our paper on the calculation of eigenvalues in quantum dot systems using an operator method and exact diagonalization. It contains an equation-by-equation analysis of the paper, with errata and clarifications, and a baseline model for further numerical work.
 
-## Published Research Article
+## Published article
 
 **Title:** Calculating the Eigenvalues of the Quantum Dot Operator Method and Exact Diagonalization Method
 
@@ -10,21 +10,19 @@ This repository presents my published research on the calculation of eigenvalues
 
 **Journal:** International Journal of Smart Electrical Engineering
 
-**Publication Details:**
-- Volume: 9
-- Issue: 4
-- Pages: 159–164
-- Publication: Fall 2020
+**Publication details:**
+- Volume 9, Issue 4, pp. 159–164, Fall 2020
 - ISSN: 2251-9246
 - E-ISSN: 2345-6221
+- Received: 20 December 2020; Revised: 20 February 2021; Accepted: 25 February 2021
+
+[Read the published article (PDF)](https://oiccpress.com/ijsee/article/download/16411/17967/42677)
 
 ## Abstract
 
-This paper investigates the theoretical treatment of quantum dot systems through Hamiltonian formulations, focusing on Coulomb interactions and the calculation of energy eigenvalues.
+We consider a quantum dot as a confined quantum system and write the Hamiltonian for the Coulomb potential arising from an electric dipole. Using special functions, we obtain the corresponding eigenvalues, and we compare two approaches: an operator-based method and numerical exact diagonalization. The Hamiltonian includes kinetic, confinement, Coulomb interaction, and magnetic-field contributions.
 
-The study discusses two approaches: an operator-based method and numerical exact diagonalization. It examines the Hamiltonian components and their roles in the eigenvalue calculations, including Coulomb interaction and magnetic-field contributions.
-
-## Research Topics
+## Research topics
 
 - Quantum dots and confined quantum systems
 - Quantum Hamiltonians
@@ -34,33 +32,49 @@ The study discusses two approaches: an operator-based method and numerical exact
 - Exact diagonalization
 - Energy eigenvalue calculations
 
-## Publication
+## Repository contents
 
-[Read the published article (PDF)](https://oiccpress.com/ijsee/article/download/16411/17967/42677)
+| File | Description |
+|---|---|
+| [`docs/equation-analysis.md`](docs/equation-analysis.md) | Analysis of Eqs. (5)–(24): conventions, derivation of the single-particle energy (Eq. 12), errata, and clarifications |
+| [`docs/baseline-model.md`](docs/baseline-model.md) | Baseline definition of a one-dimensional two-electron quantum dot with a softened Coulomb interaction, in dimensionless form |
+
+Both documents use the same conventions and notation, which are stated at the beginning of each file.
+
+## Scope and reproducibility
+
+The published article does not specify every parameter and numerical detail of its calculations, for example the quantities and values used in Fig. 2. For this reason, the documents in this repository state their conventions and assumptions explicitly.
+
+We distinguish between:
+
+- mathematical relations given in the article,
+- corrections that follow from algebraic or dimensional consistency,
+- modeling conventions that we state because the article does not,
+- numerical results computed in this repository.
+
+Numerical results computed here use the conventions of the documents above. They are not claimed to reproduce Fig. 2 of the article quantitatively, and any extension beyond the article is identified as such.
+
+## Status
+
+- [x] Equation analysis and errata
+- [x] Baseline model definition
+- [ ] Numerical implementation of the baseline model (planned)
+
+## Citation
+
+```bibtex
+@article{ghasemi2020quantumdot,
+  author  = {Ghasemi, Mahdiyeh and Shokouhi, Mohammad Reza},
+  title   = {Calculating the Eigenvalues of the Quantum Dot Operator Method and Exact Diagonalization Method},
+  journal = {International Journal of Smart Electrical Engineering},
+  volume  = {9},
+  number  = {4},
+  pages   = {159--164},
+  year    = {2020},
+  issn    = {2251-9246}
+}
+```
 
 ## Acknowledgements
 
-The authors acknowledge Dr. Mohammad Reza Tanhayi for his valuable comments.
-
-- Received: 20 December 2020
-- Revised: 20 February 2021
-- Accepted: 25 February 2021
-
-## Scope and Reproducibility
-
-This repository provides an independent computational reconstruction of the theoretical and numerical framework presented in the published article:
-
-*Calculating the Eigenvalues of the Quantum Dot Operator Method and Exact Diagonalization Method* (2020).
-
-The original computational source code, numerical input files, and supplementary calculation records are not available. Therefore, the implementation is being developed independently using the equations and descriptions provided in the published paper.
-
-The reconstruction distinguishes between:
-
-- Mathematical relations explicitly provided in the article.
-- Physical assumptions required to formulate a consistent computational model.
-- Numerical results independently calculated in this repository.
-- Ambiguities and limitations in the published description.
-
-The objective is to investigate the mathematical consistency of the model, implement the relevant numerical methods, and assess the reproducibility of the reported approach.
-
-New calculations and extensions developed in this repository are independent computational work and should not be interpreted as additional results from the original publication.
+We thank Dr. Mohammad Reza Tanhayi for his valuable comments.
